@@ -2,7 +2,6 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const model = require('../../../src/models');
 
-// const app = require('../../../src/app');
 const connection = require('../../../src/db/connection');
 
 const mockProducts = [
