@@ -5,7 +5,6 @@ const service = require('../../../src/services');
 const controller = require('../../../src/controllers');
 
 chai.use(sinonChai);
-
 const { expect } = chai;
 
 const mockSales = [
