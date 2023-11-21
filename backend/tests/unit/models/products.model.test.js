@@ -5,7 +5,7 @@ const model = require('../../../src/models');
 // const app = require('../../../src/app');
 const connection = require('../../../src/db/connection');
 
-const products = [
+const mockProducts = [
   {
     id: 1,
     name: 'Martelo de Thor',
@@ -19,13 +19,39 @@ const products = [
     name: 'Escudo do CapitÃ£o AmÃ©rica',
   },
 ];
-describe('Testando os endpoints de products', function () {
-  it('Testando o retorno do endpoint products ', async function () {
-    sinon.stub(connection, 'execute').resolves(products);
+describe('Testando camada model', function () {
+  it('Testando getAllProducts ', async function () {
+    sinon.stub(connection, 'execute').resolves([mockProducts]);
 
     const allProducts = await model.getAllProducts();
 
     expect(allProducts).to.be.an('array');
+    expect(allProducts).to.be.deep.equal(mockProducts);
+    expect(allProducts).to.be.length(3);
+  });
+
+  it('Testando getProductById', async function () {
+    sinon.stub(connection, 'execute').resolves([[mockProducts]][0]);
+
+    const product = await model.getProductById(1);
+
+    expect(product).to.be.an('object');
+    expect(product).to.be.deep.equal({
+      id: 1,
+      name: 'Martelo de Thor',
+    });
+  });
+
+  it('Testando caso de erro em getProductById', async function () {
+    sinon.stub(connection, 'execute').resolves([[{
+      message: 'Product not found',
+    }]]);
+
+    const product = await model.getProductById(99);
+
+    expect(product).to.be.contain({
+      message: 'Product not found',
+    });
   });
 
   afterEach(sinon.restore);
