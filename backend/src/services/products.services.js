@@ -14,10 +14,7 @@ const getProductById = async (id) => {
 };
 
 const salveProduct = async (data) => {
-  const { insertId, affectedRows } = await model.salveProduct(data);
-  if (!affectedRows) {
-    return { status: 404, data: { message: 'Product not inserted. Try again with correct data!' } };
-  }
+  const { insertId } = await model.salveProduct(data);
   return { status: 201, data: insertId };
 };
 

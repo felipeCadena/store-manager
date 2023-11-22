@@ -11,7 +11,14 @@ const getSalesById = async (req, res) => {
   res.status(status).json(data);
 };
 
+const insertSale = async (req, res) => {
+  const arrayData = req.body;
+  const { status, data } = await service.insertSale(arrayData);
+  res.status(status).json(data);
+};
+
 module.exports = {
   getAllSales,
   getSalesById,
+  insertSale,
 };

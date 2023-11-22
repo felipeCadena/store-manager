@@ -13,7 +13,20 @@ const getSalesById = async (id) => {
   return { status: 200, data: sale };
 };
 
+const insertSale = async (data) => {
+  const insertId = await model.insertSale(data);
+  const newData = {
+    id: insertId,
+    itemsSold: data.map((itens) => ({
+      productId: itens.productId,
+      quantity: itens.quantity,
+    })),
+  }; 
+  return { status: 201, data: newData };
+};
+
 module.exports = {
   getAllSales,
   getSalesById,
+  insertSale,
 };

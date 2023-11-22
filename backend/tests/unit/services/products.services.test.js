@@ -36,16 +36,5 @@ describe('Testando camada service', function () {
     expect(product.status).to.be.equal(200);
   });
 
-  // it.only('Testando caso de erro em getProductById', async function () {
-  //   sinon.stub(model, 'getProductById').resolves(mockProducts);
-
-  //   const product = await service.getProductById(99);
-
-  //   expect(product.status).to.be.equal(404);
-  //   expect(product.data).to.be.deep.equal({
-  //     message: 'Product not found',
-  //   });
-  // });
-
   afterEach(sinon.restore);
 });

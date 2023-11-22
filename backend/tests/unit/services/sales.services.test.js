@@ -2,19 +2,8 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const service = require('../../../src/services');
 const model = require('../../../src/models');
+const { mockSales, mockSalesPostBody, mockSalesPost } = require('../mocks/mocksSales');
 
-const mockSales = [
-  {
-    date: '2021-09-09T04:54:29.000Z',
-    productId: 1,
-    quantity: 2,
-  },
-  {
-    date: '2021-09-09T04:54:54.000Z',
-    productId: 2,
-    quantity: 2,
-  },
-];
 describe('Testando camada service', function () {
   it('Testando getAllSales ', async function () {
     sinon.stub(model, 'getAllSales').resolves([mockSales]);
@@ -40,6 +29,15 @@ describe('Testando camada service', function () {
     const sales = await service.getSalesById(99);
     expect(sales.data).to.be.deep.equal({ message: 'Sale not found' });
     expect(sales.status).to.be.equal(404);
+  });
+
+  it('Testando a insertSale', async function () {
+    const insertId = 3;
+    sinon.stub(model, 'insertSale').resolves(insertId);
+
+    const sales = await service.insertSale(mockSalesPostBody);
+    expect(sales.data).to.be.deep.equal(mockSalesPost);
+    expect(sales.status).to.be.equal(201);
   });
 
   afterEach(sinon.restore);

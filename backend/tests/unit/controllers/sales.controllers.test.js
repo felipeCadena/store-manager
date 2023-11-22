@@ -3,22 +3,11 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const service = require('../../../src/services');
 const controller = require('../../../src/controllers');
+const { mockSales, mockSalesPostBody, mockSalesPost } = require('../mocks/mocksSales');
 
 chai.use(sinonChai);
 const { expect } = chai;
 
-const mockSales = [
-  {
-    date: '2021-09-09T04:54:29.000Z',
-    productId: 1,
-    quantity: 2,
-  },
-  {
-    date: '2021-09-09T04:54:54.000Z',
-    productId: 2,
-    quantity: 2,
-  },
-];
 describe('Testando camada controller', function () {
   it('Testando getAllSales ', async function () {
     const res = {};
@@ -52,6 +41,25 @@ describe('Testando camada controller', function () {
 
     expect(res.status).to.be.calledWith(200);
     expect(res.json).to.be.deep.calledWith(mockSales);
+  });
+
+  it('Testando insertSale ', async function () {
+    const res = {};
+    const req = {
+      body: {
+        mockSalesPostBody,
+      },
+    };
+
+    res.status = sinon.stub().returnsThis();
+    res.json = sinon.stub();
+
+    sinon.stub(service, 'insertSale').resolves({ status: 201, data: mockSalesPost });
+
+    await controller.insertSale(req, res);
+
+    expect(res.status).to.be.calledWith(201);
+    expect(res.json).to.be.deep.calledWith(mockSalesPost);
   });
 
   afterEach(sinon.restore);
