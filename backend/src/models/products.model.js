@@ -1,4 +1,3 @@
-// const camileze = require('camelize');
 const connection = require('../db/connection');
 
 const getAllProducts = async () => {
