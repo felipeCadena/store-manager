@@ -7,7 +7,7 @@ const getAllSales = async () => {
     FROM sales as s
     INNER JOIN sales_products as p
     ON p.sale_id = s.id
-    ORDER BY p.sale_id, product_id`,
+    ORDER BY p.sale_id, p.product_id`,
   );
   return camileze(allSales);
 };
@@ -22,8 +22,7 @@ const getSalesById = async (id) => {
 };
 
 const insertSale = async (data) => {
-  const [{ insertId }] = await connection
-    .execute('INSERT INTO sales (date) VALUES (NOW())');
+  const [{ insertId }] = await connection.execute('INSERT INTO sales (date) VALUES (NOW())');
   const insert = data.map(({ productId, quantity }) => connection
     .execute(
       'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
