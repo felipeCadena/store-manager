@@ -30,10 +30,19 @@ const deleteProduct = async (id) => {
   return { status: 204, data: affectedRows };
 };
 
+const searchProducts = async (q) => {
+  const products = await model.searchProducts(q);
+  const allProducts = await model.getAllProducts();
+  if (!q) return { status: 200, data: allProducts };
+  if (!products.length) return { status: 200, data: products };
+  return { status: 200, data: products };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   salveProduct,
   updateProduct,
   deleteProduct,
+  searchProducts,
 };
