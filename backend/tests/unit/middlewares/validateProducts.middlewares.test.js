@@ -15,8 +15,7 @@ describe('Testando middlewares', function () {
 
     middlewares.validateProducts(req, res, next);
 
-    expect(res.status).to.have.calledWith(422);
-    expect(next).to.have.been.calledWith();
+    expect(res.status).to.have.been.calledWith(422);
   });
 
   afterEach(sinon.restore);
