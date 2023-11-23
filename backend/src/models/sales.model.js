@@ -14,10 +14,10 @@ const getAllSales = async () => {
 
 const getSalesById = async (id) => {
   const [sale] = await connection.execute(`SELECT s.date, p.product_id, p.quantity
-  FROM sales as s
-  INNER JOIN sales_products as p
-  ON p.sale_id = s.id
-  WHERE s.id = ?`, [id]);
+    FROM sales as s
+    INNER JOIN sales_products as p
+    ON p.sale_id = s.id
+    WHERE s.id = ?`, [id]);
   return camileze(sale);
 };
 
@@ -32,6 +32,12 @@ const insertSale = async (data) => {
   return insertId;
 };
 
+const updateSaleQuantity = async (id, quantity) => {
+  const [{ affectedRows }] = await connection
+    .execute('UPDATE sales_products SET quantity = ? WHERE product_id = ?', [quantity, id]);
+  return affectedRows;
+};
+
 const deleteSales = async (id) => {
   const [{ affectedRows }] = await connection
     .execute('DELETE FROM sales WHERE id = ?', [id]);
@@ -43,4 +49,5 @@ module.exports = {
   getSalesById,
   insertSale,
   deleteSales,
+  updateSaleQuantity,
 };

@@ -1,6 +1,7 @@
 const { getAllProducts, getProductById, salveProduct, 
   updateProduct, deleteProduct } = require('./products.model');
-const { getAllSales, getSalesById, insertSale, deleteSales } = require('./sales.model');
+const { getAllSales, getSalesById, insertSale, 
+  deleteSales, updateSaleQuantity } = require('./sales.model');
 
 module.exports = {
   getAllProducts,
@@ -12,4 +13,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   deleteSales,
+  updateSaleQuantity,
 };
