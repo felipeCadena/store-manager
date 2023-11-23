@@ -18,8 +18,15 @@ const salveProduct = async (data) => {
   return { status: 201, data: insertId };
 };
 
+const updateProduct = async (name, id) => {
+  const affectedRows = await model.updateProduct(name, id);
+  if (!affectedRows) return { status: 404, data: { message: 'Product not found' } };
+  return { status: 200, data: affectedRows };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   salveProduct,
+  updateProduct,
 };
