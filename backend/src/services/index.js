@@ -1,5 +1,5 @@
 const { getAllProducts, getProductById, 
-  salveProduct, updateProduct } = require('./products.services');
+  salveProduct, updateProduct, deleteProduct } = require('./products.services');
 const { getAllSales, getSalesById, insertSale } = require('./sales.services');
 
 module.exports = {
@@ -10,4 +10,5 @@ module.exports = {
   salveProduct,
   insertSale,
   updateProduct,
+  deleteProduct,
 };
