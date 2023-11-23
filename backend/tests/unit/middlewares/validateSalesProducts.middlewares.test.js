@@ -1,54 +1,36 @@
-// const chai = require('chai');
-// const sinon = require('sinon');
-// const sinonChai = require('sinon-chai');
-// const middlewares = require('../../../src/middlewares');
-// const model = require('../../../src/models');
+const chai = require('chai');
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+const middlewares = require('../../../src/middlewares');
+const model = require('../../../src/models');
 
-// chai.use(sinonChai);
+chai.use(sinonChai);
 
-// const { expect } = chai;
-// describe('Testando middleware ValidateSalesProducts', function () {
-//   it('Testando body sem quantity', async function () {
-//     const data = [
-//       {
-//         productId: 99,
-//         quantity: 5,
-//       },
-//       {
-//         productId: 1,
-//         quantity: 2,
-//       },
-//     ];
-//     const req = { body: data };
-//     const res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
-//     const next = sinon.stub().returns();
+const { expect } = chai;
+describe('Testando middleware ValidateSalesProducts', function () {
+  it('Testando productId não encontrado', async function () {
+    const data = [
+      {
+        productId: 99,
+        quantity: 5,
+      },
+      {
+        productId: 1,
+        quantity: 2,
+      },
+    ];
+    const req = { body: data };
+    const res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
+    const next = sinon.stub().returns();
+    
+    sinon.stub(model, 'getProductById')
+      .resolves(undefined);
+    
+    await middlewares.validateSalesProducts(req, res, next);
 
-//     middlewares.validateSalesProducts(req, res, next);
-//     model.getProductById(data[0].productId);
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  });
 
-//     expect(res.status).to.have.been.calledWith(404);
-//     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
-//   });
-
-//   // it('Testando body sem productId', async function () {
-//   //   const data = [
-//   //     {
-//   //       quantity: 5,
-//   //     },
-//   //     {
-//   //       productId: 2,
-//   //       quantity: 5,
-//   //     },
-//   //   ];
-//   //   const req = { body: data };
-//   //   const res = { status: sinon.stub().returnsThis(), json: sinon.stub() };
-//   //   const next = sinon.stub().returns();
-
-//   //   middlewares.validateSales(req, res, next);
-
-//   //   expect(res.status).to.have.been.calledWith(400);
-//   //   expect(res.json).to.have.been.calledWith({ message: '"productId" is required' });
-//   // });
-
-//   afterEach(sinon.restore);
-// });
+  afterEach(sinon.restore);
+});

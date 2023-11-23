@@ -6,5 +6,6 @@ const validateSalesProducts = require('../middlewares/validateSalesProducts.midd
 router.post('/', validateSales, validateSalesProducts, controller.insertSale);
 router.get('/', controller.getAllSales);
 router.get('/:id', controller.getSalesById);
+router.delete('/:id', controller.deleteSales);
 
 module.exports = router;

@@ -62,5 +62,41 @@ describe('Testando camada controller', function () {
     expect(res.json).to.be.deep.calledWith(mockSalesPost);
   });
 
+  it('Testando deleteSales ', async function () {
+    const res = {};
+    const req = {
+      params: 1,
+    };
+
+    const affectedRows = 1;
+
+    res.status = sinon.stub().returnsThis();
+    res.json = sinon.stub();
+
+    sinon.stub(service, 'deleteSales').resolves({ status: 204, data: affectedRows });
+
+    await controller.deleteSales(req, res);
+
+    expect(res.status).to.be.calledWith(204);
+    expect(res.json).to.be.deep.calledWith(affectedRows);
+  });
+
+  it('Testando caso de erro na deleteSales ', async function () {
+    const res = {};
+    const req = {
+      params: 99,
+    };
+
+    res.status = sinon.stub().returnsThis();
+    res.json = sinon.stub();
+
+    sinon.stub(service, 'deleteSales').resolves({ status: 404, data: { message: 'Sale not found' } });
+
+    await controller.deleteSales(req, res);
+
+    expect(res.status).to.be.calledWith(404);
+    expect(res.json).to.be.deep.calledWith({ message: 'Sale not found' });
+  });
+
   afterEach(sinon.restore);
 });

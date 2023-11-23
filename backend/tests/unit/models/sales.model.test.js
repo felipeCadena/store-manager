@@ -45,5 +45,15 @@ describe('Testando camada model', function () {
     expect(sales).to.be.deep.equal(insertId);
   });
 
+  it('Testando deleteSales', async function () {
+    const id = 1;
+    const affectedRows = 1;
+    sinon.stub(connection, 'execute').resolves([{ affectedRows }]);
+
+    const sales = await model.deleteSales(id);
+
+    expect(sales).to.be.deep.equal(affectedRows);
+  });
+
   afterEach(sinon.restore);
 });

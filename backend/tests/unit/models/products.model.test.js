@@ -53,5 +53,15 @@ describe('Testando camada model', function () {
     });
   });
 
+  it('Testando deleteProduct', async function () {
+    const id = 1;
+    const affectedRows = 1;
+    sinon.stub(connection, 'execute').resolves([{ affectedRows }]);
+
+    const sales = await model.deleteProduct(id);
+
+    expect(sales).to.be.deep.equal(affectedRows);
+  });
+
   afterEach(sinon.restore);
 });

@@ -40,5 +40,27 @@ describe('Testando camada service', function () {
     expect(sales.status).to.be.equal(201);
   });
 
+  it('Testando a deleteSales', async function () {
+    const id = 1;
+    const affectedRows = 1;
+    sinon.stub(model, 'deleteSales').resolves(affectedRows);
+
+    const sales = await service.deleteSales(id);
+    
+    expect(sales.data).to.be.deep.equal(affectedRows);
+    expect(sales.status).to.be.equal(204);
+  });
+
+  it('Testando caso de erro na deleteSales', async function () {
+    const id = 99;
+    const affectedRows = 0;
+    sinon.stub(model, 'deleteSales').resolves(affectedRows);
+
+    const sales = await service.deleteSales(id);
+    
+    expect(sales.data).to.be.deep.equal({ message: 'Sale not found' });
+    expect(sales.status).to.be.equal(404);
+  });
+
   afterEach(sinon.restore);
 });
