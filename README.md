@@ -1,10 +1,3 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# Store Manager
+
+<p>Neste projeto, foi desenvolvido uma API RESTful - em Node - utilizando a arquiterura de software em camadas. A API é um sistema de gerenciamento de vendas em que é possível criar, visualizar, deletar e atualizar produtos e vendas utilizando o banco de dados MySQL para gestão de dados. Também foi desenvolvido testes para garantir as funcionalidades das implementações.</p>
